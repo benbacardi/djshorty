@@ -6,6 +6,7 @@ dependencies=[
     'django',
     'django-autoconfig >= 0.5.0',
     'django-nuit >= 1.0.0, < 2.0.0',
+    'django-tastypie',
 ]
 test_dependencies=[
     'django-setuptest',

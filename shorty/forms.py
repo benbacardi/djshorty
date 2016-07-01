@@ -12,7 +12,7 @@ class ShortURLForm(forms.ModelForm):
     path = forms.SlugField(required=False, widget=forms.TextInput(attrs={'placeholder': 'short-url'}))
     override_existing = forms.CharField(required=False, widget=forms.HiddenInput())
 
-    def __init__(self, request, *args, **kwargs):
+    def __init__(self, request=None, *args, **kwargs):
         self.request = request
         return super(ShortURLForm, self).__init__(*args, **kwargs)
 
@@ -22,7 +22,7 @@ class ShortURLForm(forms.ModelForm):
 
         if override_existing != '1':
             short_urls = ShortURL.objects.filter(redirect=redirect)
-            if short_urls:
+            if short_urls and self.request:
                 self.request.previous_short_urls = short_urls
                 raise forms.ValidationError('That URL has been shortened previously.')
 
